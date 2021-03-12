@@ -18,7 +18,7 @@ export default ScrollContainer;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     width: '100%',
     paddingBottom: 20,
     paddingTop: 20,
