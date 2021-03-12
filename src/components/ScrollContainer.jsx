@@ -8,7 +8,7 @@ const ScrollContainer = ({children, style}) => {
   return <ScrollView style={myStyle}>{children}</ScrollView>;
 };
 
-ScrollContainer.prototype = {
+ScrollContainer.propType = {
   children: PropTypes.element.isRequired,
   style: PropTypes.object,
 };

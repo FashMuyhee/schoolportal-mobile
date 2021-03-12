@@ -8,7 +8,7 @@ const Container = ({children, style}) => {
   return <View style={myStyle}>{children}</View>;
 };
 
-Container.prototype = {
+Container.propType = {
   children: PropTypes.element.isRequired,
   style: PropTypes.object,
 };

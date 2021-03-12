@@ -24,7 +24,7 @@ const NavBar = ({left, right, center, bgColor, customStyles}) => {
   );
 };
 
-NavBar.prototype = {
+NavBar.propType = {
   left: PropTypes.element,
   center: PropTypes.element,
   right: PropTypes.element,
@@ -34,7 +34,7 @@ export default NavBar;
 
 const styles = StyleSheet.create({
   navbar: {
-    height: 50,
+    height: 60,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
