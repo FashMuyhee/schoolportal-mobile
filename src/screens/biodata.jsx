@@ -20,7 +20,6 @@ const Biodata = ({navigation, theme}) => {
             Biodata
           </Text>
         }
-        bgColor={colors.primary}
         left={
           <Icon
             name="arrow-left"
@@ -40,17 +39,7 @@ const Biodata = ({navigation, theme}) => {
             style={styles.imagePicker}
           />
         </View>
-        <Tabs>
-          <TabScreen label="Explore" icon="compass">
-            <View style={{backgroundColor: 'black', flex: 1}} />
-          </TabScreen>
-          <TabScreen label="Flights" icon="airplane">
-            <View style={{backgroundColor: 'black', flex: 1}} />
-          </TabScreen>
-          <TabScreen label="Trips" icon="bag-suitcase">
-            <View style={{backgroundColor: 'red', flex: 1}} />
-          </TabScreen>
-        </Tabs>
+        <Text>tagu</Text>
       </Container>
     </>
   );

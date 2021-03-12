@@ -5,15 +5,20 @@ import {Text, List, Divider, Avatar} from 'react-native-paper';
 import logo from '../assets/images/logo.png';
 import student from '../assets/images/student.png';
 import Icon from 'react-native-vector-icons/Feather';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+
 const Dashboard = ({navigation}) => {
   const [actions] = useState([
     {action: 'Biodata', route: 'biodata', icon: 'account'},
-    {action: 'Payment History', route: '', icon: 'menu'},
+    {action: 'Payment History', route: 'p_history', icon: 'menu'},
     {action: 'Validate Payment', route: '', icon: 'shield-check-outline'},
     {action: 'Course Registration', route: '', icon: 'notebook'},
     {action: 'Transcript', route: '', icon: 'folder-account'},
     {action: 'View Course Form', route: '', icon: 'book-open-variant'},
-    {action: 'My Result', route: '', icon: 'clipboard-list-outline'},
+    {action: 'My Result', route: 'result', icon: 'clipboard-list-outline'},
     {action: 'Hostel', route: '', icon: 'home'},
   ]);
   return (
@@ -52,7 +57,7 @@ const Dashboard = ({navigation}) => {
             style={{backgroundColor: 'grey'}}
           />
           <View style={{marginLeft: 20, width: '50%'}}>
-            <Text style={{fontSize: 20}}>Arobadi Ebenezer R</Text>
+            <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
             <Text>F/HD/18/3210023</Text>
           </View>
           <View
@@ -98,10 +103,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  listWrapper: {marginTop: 40, borderRadius: 40, elevation: 8, paddingTop: 20},
+  listWrapper: {marginTop: hp(5), borderRadius: 40, elevation: 8, paddingTop: 20},
   bottomDetail: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '20%',
+    marginTop: hp(15)
   },
 });
