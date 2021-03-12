@@ -15,7 +15,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       headerMode="none"
-      initialRouteName="dashboard"
+      initialRouteName="login"
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
