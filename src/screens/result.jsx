@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {NavBar, ScrollContainer} from '../components';
 import {Text, withTheme, Avatar, IconButton} from 'react-native-paper';
 import {
@@ -7,8 +7,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import student from '../assets/images/student.png';
+import Icon from 'react-native-vector-icons/Feather';
 
-const Result = () => {
+const Result = ({theme,navigation}) => {
+  const {colors} = theme;
   return (
     <>
       <NavBar
@@ -17,7 +19,6 @@ const Result = () => {
             Results
           </Text>
         }
-        bgColor={colors.primary}
         left={
           <Icon
             name="arrow-left"
@@ -34,6 +35,6 @@ const Result = () => {
   );
 };
 
-export default Result;
+export default withTheme(Result);
 
 const styles = StyleSheet.create({});
