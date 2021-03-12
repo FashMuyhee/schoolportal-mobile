@@ -8,8 +8,11 @@ import {
 } from 'react-native';
 import {Container} from '../components';
 import {Button, Text, withTheme, TextInput} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/Feather';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import logo from '../assets/images/logo.png';
 
 const Login = ({navigation, theme}) => {
@@ -27,10 +30,16 @@ const Login = ({navigation, theme}) => {
           <TextInput
             label="Matric Number"
             style={styles.input}
-            left={<Icon name="user" color="green" size={20} />}
+            left={<TextInput.Icon color={colors.primary} icon="account" />}
           />
-          <TextInput label="Password" style={styles.input} secureTextEntry />
+          <TextInput
+            label="Password"
+            style={styles.input}
+            secureTextEntry
+            left={<TextInput.Icon name="lock" color={colors.primary} />}
+          />
           <Button
+            onPress={() => navigation.navigate('dashboard')}
             mode="contained"
             labelStyle={{textTransform: 'uppercase', fontSize: 20}}
             style={styles.loginBtn}>
@@ -40,17 +49,17 @@ const Login = ({navigation, theme}) => {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-around',
-              width: '90%',
+              width: wp(90),
               alignSelf: 'center',
             }}>
-            <Text style={{fontSize: 20}}>Having Issues logging in ?</Text>
+            <Text style={{fontSize: wp(4)}}>Having Issues logging in ?</Text>
             <TouchableWithoutFeedback>
               <Text
                 style={{
                   textTransform: 'capitalize',
                   fontWeight: 'normal',
                   color: '#00ab4a',
-                  fontSize: 20,
+                  fontSize: wp(4),
                 }}>
                 Contact Support
               </Text>
@@ -65,14 +74,16 @@ const Login = ({navigation, theme}) => {
               position: 'absolute',
               bottom: 20,
             }}>
-            <Text style={{fontSize: 17}}>By logging in you agree to the </Text>
+            <Text style={{fontSize: wp(3)}}>
+              By logging in you agree to the{' '}
+            </Text>
             <TouchableWithoutFeedback>
               <Text
                 style={{
                   textTransform: 'capitalize',
                   fontWeight: 'normal',
                   color: '#00ab4a',
-                  fontSize: 17,
+                  fontSize: wp(3),
                 }}>
                 Terms and condition
               </Text>
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
   },
   form: {
     backgroundColor: 'white',
-    height: '70%',
+    height: hp(70),
     width: '100%',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
