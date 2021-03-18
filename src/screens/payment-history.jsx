@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {
   NavBar,
   ScrollContainer,
@@ -17,6 +17,7 @@ import {
   Divider,
   List,
   Button,
+  DataTable,
 } from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
@@ -126,43 +127,43 @@ const PaymentHistory = ({theme, navigation}) => {
         <Divider />
         <View style={styles.tableContent}>
           <Text style={styles.title}>Payment History </Text>
-          <Table>
-            <THead>
+          <DataTable>
+            <DataTable.Header>
               {tableData.title.map((data, key) => {
                 return (
-                  <TCell key={key}>
+                  <DataTable.Title key={key}>
                     <Text
                       style={{color: '#00ab4a', textTransform: 'uppercase'}}>
                       {data}
                     </Text>
-                  </TCell>
+                  </DataTable.Title>
                 );
               })}
-            </THead>
-            <TBody>
+            </DataTable.Header>
+            <ScrollView>
               {tableData.body.map((item, key) => {
                 return (
-                  <TRow key={key}>
-                    <TCell>
+                  <DataTable.Row key={key}>
+                    <DataTable.Cell>
                       <Text style={styles.tableText}>{item.fee}</Text>
-                    </TCell>
-                    <TCell>
+                    </DataTable.Cell>
+                    <DataTable.Cell>
                       <Text style={styles.tableText}>{item.session}</Text>
-                    </TCell>
-                    <TCell>
+                    </DataTable.Cell>
+                    <DataTable.Cell>
                       <Text style={styles.tableText}>{item.amount}</Text>
-                    </TCell>
-                    <TCell>
+                    </DataTable.Cell>
+                    <DataTable.Cell>
                       <Text style={styles.tableText}>{item.date}</Text>
-                    </TCell>
-                    <TCell>
+                    </DataTable.Cell>
+                    <DataTable.Cell>
                       <Text style={styles.tableText}>{item.status}</Text>
-                    </TCell>
-                  </TRow>
+                    </DataTable.Cell>
+                  </DataTable.Row>
                 );
               })}
-            </TBody>
-          </Table>
+            </ScrollView>
+          </DataTable>
           <Button mode="contained">PRINT</Button>
         </View>
       </ScrollContainer>
@@ -203,5 +204,7 @@ const styles = StyleSheet.create({
   },
   tableText: {
     textTransform: 'capitalize',
+    fontSize: wp(2.5),
+    textAlign: 'center',
   },
 });

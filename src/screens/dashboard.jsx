@@ -33,7 +33,12 @@ const Dashboard = ({navigation}) => {
           </View>
         </View>
         <View style={styles.right}>
-          <Icon name="help-circle" color="white" size={25} />
+          <Icon
+            name="help-circle"
+            color="white"
+            size={25}
+            onPress={() => navigation.navigate('faq')}
+          />
           <Icon name="more-vertical" color="white" size={25} />
         </View>
       </View>
@@ -103,10 +108,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  listWrapper: {marginTop: hp(5), borderRadius: 40, elevation: 8, paddingTop: 20},
+  listWrapper: {
+    marginTop: hp(5),
+    borderRadius: 40,
+    elevation: 8,
+    paddingTop: 20,
+  },
   bottomDetail: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp(15)
+    marginTop: hp(15),
   },
 });
