@@ -59,7 +59,11 @@ const Dashboard = ({navigation}) => {
           <Avatar.Image
             source={student}
             size={80}
-            style={{backgroundColor: 'grey'}}
+            style={{
+              borderColor: '#00ab4a',
+              borderWidth: 1,
+              backgroundColor: 'white',
+            }}
           />
           <View style={{marginLeft: 20, width: '50%'}}>
             <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
@@ -117,6 +121,6 @@ const styles = StyleSheet.create({
   bottomDetail: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp(15),
+    marginTop: hp(9),
   },
 });

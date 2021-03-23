@@ -3,7 +3,15 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
-import {Biodata, Dashboard, Login, Result, Welcome,PaymentHistory} from '../screens';
+import {
+  Biodata,
+  Dashboard,
+  Login,
+  Result,
+  Welcome,
+  PaymentHistory,
+  Faq,
+} from '../screens';
 import {Context} from '../store/context';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -15,7 +23,7 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       headerMode="none"
-      initialRouteName="p_history"
+      initialRouteName="login"
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
@@ -25,6 +33,7 @@ const StackNavigator = () => {
       <Stack.Screen name="biodata" component={Biodata} />
       <Stack.Screen name="p_history" component={PaymentHistory} />
       <Stack.Screen name="result" component={Result} />
+      <Stack.Screen name="faq" component={Faq} />
     </Stack.Navigator>
   );
 };
