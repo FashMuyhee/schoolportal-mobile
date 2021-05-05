@@ -52,14 +52,14 @@ const Login = ({navigation, theme}) => {
               width: wp(90),
               alignSelf: 'center',
             }}>
-            <Text style={{fontSize: wp(4)}}>Having Issues logging in ?</Text>
+            <Text style={{fontSize: wp(3.4)}}>Having Issues logging in ?</Text>
             <TouchableWithoutFeedback>
               <Text
                 style={{
                   textTransform: 'capitalize',
                   fontWeight: 'normal',
                   color: '#00ab4a',
-                  fontSize: wp(4),
+                  fontSize: wp(3.4),
                 }}>
                 Contact Support
               </Text>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignSelf: 'center',
-    marginTop: hp(5),
+    marginTop: hp(6),
     padding: 30,
   },
   input: {

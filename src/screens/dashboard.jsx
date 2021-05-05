@@ -14,7 +14,11 @@ const Dashboard = ({navigation}) => {
   const [actions] = useState([
     {action: 'Biodata', route: 'biodata', icon: 'account'},
     {action: 'Payment History', route: 'p_history', icon: 'menu'},
-    {action: 'Validate Payment', route: '', icon: 'shield-check-outline'},
+    {
+      action: 'Validate Payment',
+      route: 'validate-payment',
+      icon: 'shield-check-outline',
+    },
     {action: 'Course Registration', route: '', icon: 'notebook'},
     {action: 'Transcript', route: '', icon: 'folder-account'},
     {action: 'View Course Form', route: '', icon: 'book-open-variant'},
@@ -122,5 +126,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: hp(9),
+    position: 'absolute',
+    top: hp(60),
+    bottom: 0,
+    height: hp(10),
+    width: wp(100),
+    padding: 15,
   },
 });
