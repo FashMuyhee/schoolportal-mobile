@@ -82,92 +82,74 @@ const PaymentHistory = ({theme, navigation}) => {
     ],
   });
   return (
-    <>
-      <NavBar
-        center={
-          <Text style={{color: 'white', fontSize: wp(4), fontWeight: 'bold'}}>
-            Payment History
+    <ScrollContainer>
+      <View style={styles.profileDetails}>
+        <Avatar.Image
+          source={student}
+          size={100}
+          style={{backgroundColor: 'grey'}}
+        />
+        <View style={{marginLeft: 20, width: '80%'}}>
+          <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
+          <Text>F/HD/18/3210023</Text>
+          <Text style={{fontSize: wp(2.7)}}>
+            HND2 COMPUTER SCIENCE FULL-TIME
           </Text>
-        }
-        left={
-          <Icon
-            name="arrow-left"
-            color="white"
-            size={30}
-            onPress={() => navigation.goBack()}
+        </View>
+      </View>
+      <Divider />
+      <View style={styles.academicInfo}>
+        {academicDetail.map((detail, key) => (
+          <List.Item
+            title={detail.title}
+            description={detail.description}
+            style={styles.listItem}
+            key={key}
           />
-        }
-      />
-      <ScrollContainer>
-        <View style={styles.profileDetails}>
-          <Avatar.Image
-            source={student}
-            size={100}
-            style={{backgroundColor: 'grey'}}
-          />
-          <View style={{marginLeft: 20, width: '80%'}}>
-            <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
-            <Text>F/HD/18/3210023</Text>
-            <Text style={{fontSize: wp(2.7)}}>
-              HND2 COMPUTER SCIENCE FULL-TIME
-            </Text>
-          </View>
-        </View>
-        <Divider />
-        <View style={styles.academicInfo}>
-          {academicDetail.map((detail, key) => (
-            <List.Item
-              title={detail.title}
-              description={detail.description}
-              style={styles.listItem}
-              key={key}
-            />
-          ))}
-        </View>
-        <Divider />
-        <View style={styles.tableContent}>
-          <Text style={styles.title}>Payment History </Text>
-          <DataTable>
-            <DataTable.Header>
-              {tableData.title.map((data, key) => {
-                return (
-                  <DataTable.Title key={key}>
-                    <Text
-                      style={{color: '#00ab4a', textTransform: 'uppercase'}}>
-                      {data}
-                    </Text>
-                  </DataTable.Title>
-                );
-              })}
-            </DataTable.Header>
-            <ScrollView>
-              {tableData.body.map((item, key) => {
-                return (
-                  <DataTable.Row key={key}>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.fee}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.session}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.amount}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.date}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.status}</Text>
-                    </DataTable.Cell>
-                  </DataTable.Row>
-                );
-              })}
-            </ScrollView>
-          </DataTable>
-          <Button mode="contained">PRINT</Button>
-        </View>
-      </ScrollContainer>
-    </>
+        ))}
+      </View>
+      <Divider />
+      <View style={styles.tableContent}>
+        <Text style={styles.title}>Payment History </Text>
+        <DataTable>
+          <DataTable.Header>
+            {tableData.title.map((data, key) => {
+              return (
+                <DataTable.Title key={key}>
+                  <Text style={{color: '#00ab4a', textTransform: 'uppercase'}}>
+                    {data}
+                  </Text>
+                </DataTable.Title>
+              );
+            })}
+          </DataTable.Header>
+          <ScrollView>
+            {tableData.body.map((item, key) => {
+              return (
+                <DataTable.Row key={key}>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.fee}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.session}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.amount}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.date}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.status}</Text>
+                  </DataTable.Cell>
+                </DataTable.Row>
+              );
+            })}
+          </ScrollView>
+        </DataTable>
+        <Button mode="contained">PRINT</Button>
+      </View>
+    </ScrollContainer>
   );
 };
 

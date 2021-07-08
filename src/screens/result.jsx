@@ -81,104 +81,86 @@ const Result = ({theme, navigation}) => {
     ],
   });
   return (
-    <>
-      <NavBar
-        center={
-          <Text style={{color: 'white', fontSize: wp(4), fontWeight: 'bold'}}>
-            Results
+    <ScrollContainer>
+      <View style={styles.profileDetails}>
+        <Avatar.Image
+          source={student}
+          size={100}
+          style={{backgroundColor: 'grey'}}
+        />
+        <View style={{marginLeft: 20, width: '80%'}}>
+          <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
+          <Text>F/HD/18/3210023</Text>
+          <Text style={{fontSize: wp(2.7)}}>
+            HND2 COMPUTER SCIENCE FULL-TIME
           </Text>
-        }
-        left={
-          <Icon
-            name="arrow-left"
-            color="white"
-            size={30}
-            onPress={() => navigation.goBack()}
-          />
-        }
-      />
-      <ScrollContainer>
-        <View style={styles.profileDetails}>
-          <Avatar.Image
-            source={student}
-            size={100}
-            style={{backgroundColor: 'grey'}}
-          />
-          <View style={{marginLeft: 20, width: '80%'}}>
-            <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
-            <Text>F/HD/18/3210023</Text>
-            <Text style={{fontSize: wp(2.7)}}>
-              HND2 COMPUTER SCIENCE FULL-TIME
-            </Text>
-          </View>
         </View>
-        <Divider />
-        <View style={styles.academicInfo}>
-          {academicDetail.map((detail, key) => (
-            <List.Item
-              title={detail.title}
-              description={detail.description}
-              style={styles.listItem}
-              key={key}
-            />
-          ))}
-        </View>
-        <Divider />
-        <View style={styles.tableContent}>
-          <Text style={styles.title}>Payment History </Text>
-          <DataTable>
-            <DataTable.Header>
-              {tableData.title.map((data, key) => {
-                return (
-                  <DataTable.Title key={key}>
-                    <Text
-                      style={{color: '#00ab4a', textTransform: 'uppercase'}}>
-                      {data}
-                    </Text>
-                  </DataTable.Title>
-                );
-              })}
-            </DataTable.Header>
-            <ScrollView>
-              {tableData.body.map((item, key) => {
-                return (
-                  <DataTable.Row key={key}>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.session}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.semester}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.level}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <Text style={styles.tableText}>{item.cgpa}</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell
+      </View>
+      <Divider />
+      <View style={styles.academicInfo}>
+        {academicDetail.map((detail, key) => (
+          <List.Item
+            title={detail.title}
+            description={detail.description}
+            style={styles.listItem}
+            key={key}
+          />
+        ))}
+      </View>
+      <Divider />
+      <View style={styles.tableContent}>
+        <Text style={styles.title}>Payment History </Text>
+        <DataTable>
+          <DataTable.Header>
+            {tableData.title.map((data, key) => {
+              return (
+                <DataTable.Title key={key}>
+                  <Text style={{color: '#00ab4a', textTransform: 'uppercase'}}>
+                    {data}
+                  </Text>
+                </DataTable.Title>
+              );
+            })}
+          </DataTable.Header>
+          <ScrollView>
+            {tableData.body.map((item, key) => {
+              return (
+                <DataTable.Row key={key}>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.session}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.semester}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.level}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    <Text style={styles.tableText}>{item.cgpa}</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.tableText}>{item.gpa}</Text>
+                    <Icon
+                      name="printer"
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={styles.tableText}>{item.gpa}</Text>
-                      <Icon
-                        name="printer"
-                        style={{
-                          color: '#00ab4a',
-                          marginLeft: 20,
-                        }}
-                        size={20}
-                      />
-                    </DataTable.Cell>
-                  </DataTable.Row>
-                );
-              })}
-            </ScrollView>
-          </DataTable>
-        </View>
-      </ScrollContainer>
-    </>
+                        color: '#00ab4a',
+                        marginLeft: 20,
+                      }}
+                      size={20}
+                    />
+                  </DataTable.Cell>
+                </DataTable.Row>
+              );
+            })}
+          </ScrollView>
+        </DataTable>
+      </View>
+    </ScrollContainer>
   );
 };
 
