@@ -20,7 +20,7 @@ const Login = ({navigation, theme}) => {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <Container style={styles.container}>
+      <Container style={styles.container} pad={false}>
         <View style={styles.logo}>
           <Image source={logo} />
           <Text style={styles.loginTitle}>Login To Your Portal</Text>
@@ -99,7 +99,6 @@ export default withTheme(Login);
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 0,
     backgroundColor: '#00AB4A',
   },
   loginTitle: {
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignSelf: 'center',
-    marginTop: hp(6),
+    marginTop: '15%',
     padding: 30,
   },
   input: {
