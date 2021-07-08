@@ -2,8 +2,12 @@ import React from 'react';
 import {StyleSheet, View, ImageBackground} from 'react-native';
 import PropTypes from 'prop-types';
 
-const Container = ({children, style}) => {
-  const myStyle = {...styles.container, ...style};
+const Container = ({children, style, pad = true}) => {
+  const myStyle = [
+    styles.container,
+    style,
+    {paddingHorizontal: pad ? '7%' : 0},
+  ];
 
   return <View style={myStyle}>{children}</View>;
 };
@@ -11,6 +15,7 @@ const Container = ({children, style}) => {
 Container.propType = {
   children: PropTypes.element.isRequired,
   style: PropTypes.object,
+  pad: PropTypes.bool,
 };
 
 export default Container;
@@ -18,7 +23,6 @@ export default Container;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingHorizontal: '7%',
     justifyContent: 'flex-start',
     height: '100%',
     width: '100%',
