@@ -19,12 +19,16 @@ const Dashboard = ({navigation}) => {
       route: 'validate-payment',
       icon: 'shield-check-outline',
     },
-    {action: 'Course Registration', route: '', icon: 'notebook'},
-    {action: 'Transcript', route: '', icon: 'folder-account'},
-    {action: 'View Course Form', route: '', icon: 'book-open-variant'},
+    {action: 'Transcript', route: 'coming_soon', icon: 'folder-account'},
+    {
+      action: 'View Course Form',
+      route: 'view-course',
+      icon: 'book-open-variant',
+    },
     {action: 'My Result', route: 'result', icon: 'clipboard-list-outline'},
-    {action: 'Hostel', route: '', icon: 'home'},
+    {action: 'Hostel', route: 'h_dashboard', icon: 'home'},
   ]);
+
   return (
     <Container style={{paddingLeft: 0, paddingRight: 0}}>
       <View style={styles.navbar}>

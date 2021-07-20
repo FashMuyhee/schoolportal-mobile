@@ -109,7 +109,7 @@ const Result = ({theme, navigation}) => {
       </View>
       <Divider />
       <View style={styles.tableContent}>
-        <Text style={styles.title}>Payment History </Text>
+        <Text style={styles.title}>My result</Text>
         <DataTable>
           <DataTable.Header>
             {tableData.title.map((data, key) => {
