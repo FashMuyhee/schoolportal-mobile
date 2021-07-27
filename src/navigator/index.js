@@ -13,12 +13,17 @@ import {
   Faq,
   ValidatePayment,
   HostelDocuments,
-  HostelDashBoard,ViewCourses
+  HostelDashBoard,
+  ViewCourses,
 } from '../screens';
 import {Context} from '../store/context';
 import {NavigationContainer} from '@react-navigation/native';
 import color from '../utils/color';
 import ComingSoon from '../screens/comingsoon';
+import CourseDetails from '../screens/class_material/main';
+import ExamSchedule from '../screens/class_material/exam-schedule';
+import TimeTable from '../screens/class_material/class-table';
+import CourseMaterial from '../screens/class_material/course-material';
 
 const Stack = createStackNavigator();
 
@@ -109,6 +114,34 @@ const StackNavigator = () => {
         component={ViewCourses}
         options={({}) => ({
           title: 'View Courses',
+        })}
+      />
+      <Stack.Screen
+        name="course_details"
+        component={CourseDetails}
+        options={({}) => ({
+          title: 'Courses Details',
+        })}
+      />
+      <Stack.Screen
+        name="timetable"
+        component={TimeTable}
+        options={({}) => ({
+          title: 'Time Table',
+        })}
+      />
+      <Stack.Screen
+        name="course_material"
+        component={CourseMaterial}
+        options={({}) => ({
+          title: 'Course Material',
+        })}
+      />
+      <Stack.Screen
+        name="exam_schedule"
+        component={ExamSchedule}
+        options={({}) => ({
+          title: 'exam schedule',
         })}
       />
       <Stack.Screen

@@ -27,6 +27,7 @@ const Dashboard = ({navigation}) => {
     },
     {action: 'My Result', route: 'result', icon: 'clipboard-list-outline'},
     {action: 'Hostel', route: 'h_dashboard', icon: 'home'},
+    {action: 'Course Details', route: 'course_details', icon: 'notebook'},
   ]);
 
   return (

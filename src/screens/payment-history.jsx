@@ -1,14 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {
-  NavBar,
-  ScrollContainer,
-  Table,
-  TCell,
-  TBody,
-  TRow,
-  THead,
-} from '../components';
+import {NavBar, ScrollContainer} from '../components';
 import {
   Text,
   withTheme,
