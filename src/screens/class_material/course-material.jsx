@@ -30,12 +30,12 @@ const CourseMaterial = ({navigation}) => {
     <Container pad>
       <Table
         borderStyle={styles.tableWrapper}
-        style={{height: hp(70), marginTop: 20}}>
+        style={{height: hp(7 * tableData.body.length + 6), marginTop: 20}}>
         <Row
           data={tableData.head}
           style={styles.head}
           textStyle={styles.textHead}
-          widthArr={[300, 100]}
+          widthArr={[wp(50), wp(30)]}
         />
         {tableData.body.map((rowData, index) => (
           <TableWrapper key={index} style={styles.row}>
@@ -47,7 +47,7 @@ const CourseMaterial = ({navigation}) => {
                     <IconButton
                       icon="download"
                       color={colors.background}
-                      size={40}
+                      size={30}
                       style={{backgroundColor: colors.primary, marginLeft: 25}}
                     />
                   ) : (
@@ -55,17 +55,11 @@ const CourseMaterial = ({navigation}) => {
                   )
                 }
                 textStyle={styles.textBody}
-                width={cellIndex === 1 ? 100 : 300}
+                width={cellIndex === 1 ? wp(30) : wp(50)}
               />
             ))}
           </TableWrapper>
         ))}
-        {/*  <Rows
-          data={tableData.body}
-          textStyle={styles.textBody}
-          style={{height: hp(10)}}
-          //   widthArr={[150, 150]}
-        /> */}
       </Table>
     </Container>
   );
@@ -75,7 +69,7 @@ export default CourseMaterial;
 
 const styles = StyleSheet.create({
   head: {
-    height: 60,
+    height: hp(6),
     backgroundColor: colors.primary,
   },
   tableWrapper: {
@@ -86,7 +80,7 @@ const styles = StyleSheet.create({
 
   textBody: {
     margin: 6,
-    fontSize: hp(2),
+    fontSize: hp(1.7),
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'Raleway-Regular',
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'white',
     textAlign: 'center',
-    fontSize: hp(1.2),
+    fontSize: hp(1.6),
   },
   row: {
     flexDirection: 'row',

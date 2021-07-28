@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {Container} from '../components';
 import {Text, List, Divider, Avatar} from 'react-native-paper';
@@ -9,6 +9,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {Context} from '../store/context';
 
 const Dashboard = ({navigation}) => {
   const [actions] = useState([
@@ -19,7 +20,7 @@ const Dashboard = ({navigation}) => {
       route: 'validate-payment',
       icon: 'shield-check-outline',
     },
-    {action: 'Transcript', route: 'coming_soon', icon: 'folder-account'},
+    // {action: 'Transcript', route: 'coming_soon', icon: 'folder-account'},
     {
       action: 'View Course Form',
       route: 'view-course',
@@ -29,6 +30,7 @@ const Dashboard = ({navigation}) => {
     {action: 'Hostel', route: 'h_dashboard', icon: 'home'},
     {action: 'Course Details', route: 'course_details', icon: 'notebook'},
   ]);
+  const {setIsAuth} = useContext(Context);
 
   return (
     <Container style={{paddingLeft: 0, paddingRight: 0}}>
@@ -48,7 +50,12 @@ const Dashboard = ({navigation}) => {
             size={25}
             onPress={() => navigation.navigate('faq')}
           />
-          <Icon name="more-vertical" color="white" size={25} />
+          <Icon
+            name="log-out"
+            color="white"
+            size={25}
+            onPress={() => setIsAuth(false)}
+          />
         </View>
       </View>
       <Container style={styles.listWrapper}>

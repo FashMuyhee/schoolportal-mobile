@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   StyleSheet,
   StatusBar,
@@ -8,15 +8,48 @@ import {
 } from 'react-native';
 import {Container} from '../components';
 import {Button, Text, withTheme, TextInput} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import logo from '../assets/images/logo.png';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import {Context} from '../store/context';
 
 const Login = ({navigation, theme}) => {
   const {colors} = theme;
+  const [biometryType, setBiometryType] = useState({});
+  const {setIsAuth} = useContext(Context);
+
+  const handleFingerPrintLogin = () => {
+    if (biometryType !== null && biometryType !== undefined) {
+      FingerprintScanner.authenticate({
+        description: 'Touch Fingerprint scanner to continue',
+      })
+        .then(() => {
+          setIsAuth(true);
+        })
+        .catch((error) => {
+          console.log('Authentication error is => ', error);
+        });
+    } else {
+      console.log('biometric authentication is not available');
+    }
+  };
+
+  const checkSensor = () => {
+    FingerprintScanner.isSensorAvailable()
+      .then((biometryType) => {
+        setBiometryType(biometryType);
+      })
+      .catch((error) => console.log('isSensorAvailable error => ', error));
+  };
+
+  useEffect(() => {
+    checkSensor();
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -39,7 +72,7 @@ const Login = ({navigation, theme}) => {
             left={<TextInput.Icon name="lock" color={colors.primary} />}
           />
           <Button
-            onPress={() => navigation.navigate('dashboard')}
+            onPress={() => setIsAuth(true)}
             mode="contained"
             labelStyle={{textTransform: 'uppercase', fontSize: 20}}
             style={styles.loginBtn}>
@@ -64,6 +97,14 @@ const Login = ({navigation, theme}) => {
                 Contact Support
               </Text>
             </TouchableWithoutFeedback>
+          </View>
+          <View style={styles.fingerprint}>
+            <Icon
+              name="fingerprint"
+              color={colors.primary}
+              size={70}
+              onPress={handleFingerPrintLogin}
+            />
           </View>
           <View
             style={{
@@ -134,5 +175,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     marginTop: hp(5),
+  },
+  fingerprint: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 20,
   },
 });

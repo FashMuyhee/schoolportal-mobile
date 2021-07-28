@@ -63,7 +63,7 @@ export default TimeTable;
 
 const styles = StyleSheet.create({
   head: {
-    height: 60,
+    height: hp(6),
     backgroundColor: colors.primary,
   },
   tableWrapper: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 
   textBody: {
     margin: 6,
-    fontSize: hp(1.2),
+    fontSize: hp(1.5),
     textAlign: 'center',
     textTransform: 'uppercase',
     fontFamily: 'Raleway-Regular',
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'white',
     textAlign: 'center',
-    fontSize: hp(1.2),
+    fontSize: hp(1.5),
   },
 });

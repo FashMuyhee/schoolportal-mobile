@@ -28,12 +28,12 @@ import CourseMaterial from '../screens/class_material/course-material';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
-  const [state] = useContext(Context);
+  const {isAuth} = useContext(Context);
 
   return (
     <Stack.Navigator
       headerMode="screen"
-      initialRouteName="dashboard"
+      initialRouteName="login"
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerStyle: {backgroundColor: color.primary},
@@ -45,112 +45,119 @@ const StackNavigator = () => {
           fontWeight: '700',
         },
       }}>
-      <Stack.Screen
-        name="welcome"
-        component={Welcome}
-        options={({}) => ({
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name="login"
-        component={Login}
-        options={({}) => ({
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name="dashboard"
-        component={Dashboard}
-        options={({}) => ({
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name="biodata"
-        component={Biodata}
-        options={({}) => ({
-          title: 'Bio-data',
-        })}
-      />
-      <Stack.Screen
-        name="p_history"
-        component={PaymentHistory}
-        options={({}) => ({
-          title: 'Payment History',
-        })}
-      />
-      <Stack.Screen name="result" component={Result} />
-      <Stack.Screen
-        name="h_dashboard"
-        component={HostelDashBoard}
-        options={({}) => ({
-          title: 'Hostel & Accommodation',
-        })}
-      />
-      <Stack.Screen
-        name="h_documents"
-        component={HostelDocuments}
-        options={({}) => ({
-          title: 'Hostel Documents',
-        })}
-      />
-      <Stack.Screen
-        name="faq"
-        component={Faq}
-        options={({}) => ({
-          headerShown: false,
-        })}
-      />
-      <Stack.Screen
-        name="validate-payment"
-        component={ValidatePayment}
-        options={({}) => ({
-          title: 'validate Payment',
-        })}
-      />
-      <Stack.Screen
-        name="view-course"
-        component={ViewCourses}
-        options={({}) => ({
-          title: 'View Courses',
-        })}
-      />
-      <Stack.Screen
-        name="course_details"
-        component={CourseDetails}
-        options={({}) => ({
-          title: 'Courses Details',
-        })}
-      />
-      <Stack.Screen
-        name="timetable"
-        component={TimeTable}
-        options={({}) => ({
-          title: 'Time Table',
-        })}
-      />
-      <Stack.Screen
-        name="course_material"
-        component={CourseMaterial}
-        options={({}) => ({
-          title: 'Course Material',
-        })}
-      />
-      <Stack.Screen
-        name="exam_schedule"
-        component={ExamSchedule}
-        options={({}) => ({
-          title: 'exam schedule',
-        })}
-      />
-      <Stack.Screen
-        name="coming_soon"
-        component={ComingSoon}
-        options={({}) => ({
-          title: 'Coming Soon',
-        })}
-      />
+      {isAuth ? (
+        <>
+          <Stack.Screen
+            name="dashboard"
+            component={Dashboard}
+            options={({}) => ({
+              headerShown: false,
+            })}
+          />
+          <Stack.Screen
+            name="biodata"
+            component={Biodata}
+            options={({}) => ({
+              title: 'Bio-data',
+            })}
+          />
+          <Stack.Screen
+            name="p_history"
+            component={PaymentHistory}
+            options={({}) => ({
+              title: 'Payment History',
+            })}
+          />
+          <Stack.Screen name="result" component={Result} />
+          <Stack.Screen
+            name="h_dashboard"
+            component={HostelDashBoard}
+            options={({}) => ({
+              title: 'Hostel & Accommodation',
+            })}
+          />
+          <Stack.Screen
+            name="h_documents"
+            component={HostelDocuments}
+            options={({}) => ({
+              title: 'Hostel Documents',
+            })}
+          />
+          <Stack.Screen
+            name="faq"
+            component={Faq}
+            options={({}) => ({
+              headerShown: false,
+            })}
+          />
+          <Stack.Screen
+            name="validate-payment"
+            component={ValidatePayment}
+            options={({}) => ({
+              title: 'validate Payment',
+            })}
+          />
+          <Stack.Screen
+            name="view-course"
+            component={ViewCourses}
+            options={({}) => ({
+              title: 'View Courses',
+            })}
+          />
+          <Stack.Screen
+            name="course_details"
+            component={CourseDetails}
+            options={({}) => ({
+              title: 'Courses Details',
+            })}
+          />
+          <Stack.Screen
+            name="timetable"
+            component={TimeTable}
+            options={({}) => ({
+              title: 'Time Table',
+            })}
+          />
+          <Stack.Screen
+            name="course_material"
+            component={CourseMaterial}
+            options={({}) => ({
+              title: 'Course Material',
+            })}
+          />
+          <Stack.Screen
+            name="exam_schedule"
+            component={ExamSchedule}
+            options={({}) => ({
+              title: 'exam schedule',
+            })}
+          />
+          <Stack.Screen
+            name="coming_soon"
+            component={ComingSoon}
+            options={({}) => ({
+              title: 'Coming Soon',
+            })}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="welcome"
+            component={Welcome}
+            options={({}) => ({
+              headerShown: false,
+            })}
+          />
+          <Stack.Screen
+            name="login"
+            component={Login}
+            options={({}) => ({
+              headerShown: false,
+            })}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
