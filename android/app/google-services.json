@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19264645517",
+    "project_id": "school-portal-c540f",
+    "storage_bucket": "school-portal-c540f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19264645517:android:e377239989f74c907fb5c4",
+        "android_client_info": {
+          "package_name": "com.schoolportal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19264645517-io5n3tul62u0ghge177t273eeme51efb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpImnPw7Ctqi288OxrN-p5zSJZ1_J17jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19264645517-io5n3tul62u0ghge177t273eeme51efb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
