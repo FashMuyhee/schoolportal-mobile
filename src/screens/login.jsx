@@ -15,12 +15,52 @@ import {
 } from 'react-native-responsive-screen';
 import logo from '../assets/images/logo.png';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-import {Context} from '../store/context';
+import auth from '@react-native-firebase/auth';
+import validateEmail from '../utils/validateEmail';
 
-const Login = ({navigation, theme}) => {
+const Login = ({theme}) => {
   const {colors} = theme;
   const [biometryType, setBiometryType] = useState({});
-  const {setIsAuth} = useContext(Context);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    if (!email || !password) {
+      setMessage('All Field are required');
+      Snackbar.show({text: 'All Field are required'});
+
+      return;
+    }
+
+    if (validateEmail(email)) {
+      if (password.length >= 8) {
+        setLoading(true);
+        try {
+          let response = await auth().signInWithEmailAndPassword(
+            email,
+            password,
+          );
+          if (response) {
+            // Snackbar.show({text: 'Login Successful'});
+            setLoading(false);
+          }
+        } catch (e) {
+          console.error(e.message);
+          setLoading(false);
+          setMessage(e);
+        }
+      } else {
+        /*  Snackbar.show({
+          text: 'Password Too Short, must be at least 8 characters ',
+        }); */
+        console.log('Password Too Short, must be at least 8 characters');
+      }
+    } else {
+      // Snackbar.show({text: 'Invalid Email'});
+      console.log('Invalid Email');
+    }
+  };
 
   const handleFingerPrintLogin = () => {
     if (biometryType !== null && biometryType !== undefined) {
@@ -28,7 +68,7 @@ const Login = ({navigation, theme}) => {
         description: 'Touch Fingerprint scanner to continue',
       })
         .then(() => {
-          setIsAuth(true);
+          handleSignIn();
         })
         .catch((error) => {
           console.log('Authentication error is => ', error);
@@ -61,18 +101,23 @@ const Login = ({navigation, theme}) => {
 
         <View style={styles.form}>
           <TextInput
-            label="Matric Number"
+            label="Email"
             style={styles.input}
-            left={<TextInput.Icon color={colors.primary} icon="account" />}
+            left={<TextInput.Icon color={colors.primary} icon="email" />}
+            onChangeText={setEmail}
+            value={email}
           />
           <TextInput
+            value={password}
+            onChangeText={setPassword}
             label="Password"
             style={styles.input}
             secureTextEntry
             left={<TextInput.Icon name="lock" color={colors.primary} />}
           />
           <Button
-            onPress={() => setIsAuth(true)}
+            onPress={handleSignIn}
+            loading={loading}
             mode="contained"
             labelStyle={{textTransform: 'uppercase', fontSize: 20}}
             style={styles.loginBtn}>

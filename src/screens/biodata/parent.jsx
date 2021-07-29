@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Avatar, List, Divider, Text} from 'react-native-paper';
 import {ScrollContainer} from '../../components';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import student from '../../assets/images/student.png';
+import {Context} from '../../store/context';
+import firestore from '@react-native-firebase/firestore';
 
 const Parent = ({navigation}) => {
   const [data] = useState([
@@ -18,6 +20,33 @@ const Parent = ({navigation}) => {
       value: 'Mother',
     },
   ]);
+  const [myDetails, setMyDetails] = useState({});
+  const [loading, setLoading] = useState(false);
+  const {user} = useContext(Context);
+
+  const fetchParentDetails = () => {
+    firestore()
+      .collection('parents')
+      .doc(user.uid)
+      .onSnapshot(
+        (details) => {
+          setLoading(false);
+          const data = details.data();
+          setMyDetails(data);
+        },
+        (e) => {
+          console.log(e);
+          setLoading(false);
+        },
+      );
+  };
+
+  useEffect(() => {
+    fetchParentDetails();
+    return () => {
+      fetchParentDetails();
+    };
+  }, []);
 
   return (
     <ScrollContainer>
@@ -33,19 +62,54 @@ const Parent = ({navigation}) => {
       />
       <View style={styles.listWrapper}>
         <Divider />
-        {data.map((label, key) => (
-          <View key={key}>
-            <List.Item
-              title={label.value}
-              left={(props) => (
-                <Text style={styles.label}>{`${label.label} :`}</Text>
-              )}
-              titleStyle={{textTransform: 'capitalize'}}
-              style={{height: hp(7)}}
-            />
-            <Divider />
-          </View>
-        ))}
+        <List.Item
+          title={myDetails?.name}
+          left={(props) => <Text style={styles.label}>{`Fullname :`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.relation}
+          left={(props) => <Text style={styles.label}>{`Relationship :`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.status}
+          left={(props) => (
+            <Text style={styles.label}>{`Marital Status:`}</Text>
+          )}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.address}
+          left={(props) => <Text style={styles.label}>{`Address :`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.phone_no}
+          left={(props) => (
+            <Text style={styles.label}>{`Phone Number 1:`}</Text>
+          )}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.other_phone}
+          left={(props) => (
+            <Text style={styles.label}>{`Phone Number 2:`}</Text>
+          )}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
       </View>
     </ScrollContainer>
   );

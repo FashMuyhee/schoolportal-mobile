@@ -1,31 +1,45 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Avatar, List, Divider, Text} from 'react-native-paper';
 import {ScrollContainer} from '../../components';
 import student from '../../assets/images/student.png';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {Context} from '../../store/context';
+import firestore from '@react-native-firebase/firestore';
 
 const Student = ({navigation}) => {
-  const [data] = useState([
-    {label: 'Full Name', value: 'Arobadi Ebenezer Rotimi'},
-    {label: 'Matric No', value: 'F/HD/18/3210018'},
-    {
-      label: 'Program',
-      value: 'HND 2 FULL-TIME',
-    },
-    {label: 'Session', value: '20219/2020'},
-    {label: 'School', value: 'Technology'},
-    {label: 'Department', value: 'Computer Science'},
-    {label: 'Entry Year', value: '2019'},
-    {label: 'phone number', value: '08026222019'},
-    {label: 'address', value: 'My House'},
-    {label: 'sex', value: 'Male'},
-  ]);
+  const [myDetails, setMyDetails] = useState({});
+  const [loading, setLoading] = useState(false);
+  const {user} = useContext(Context);
+
+  const fetchStudentDetails = () => {
+    firestore()
+      .collection('students')
+      .doc(user.uid)
+      .onSnapshot(
+        (details) => {
+          setLoading(false);
+          const data = details.data();
+          setMyDetails(data);
+        },
+        (e) => {
+          console.log(e);
+          setLoading(false);
+        },
+      );
+  };
+
+  useEffect(() => {
+    fetchStudentDetails();
+    return () => {
+      fetchStudentDetails();
+    };
+  }, []);
 
   return (
     <ScrollContainer>
       <Avatar.Image
-        source={student}
+        source={myDetails?.dp_url ?? student}
         size={250}
         style={{
           borderColor: '#00ab4a',
@@ -36,19 +50,82 @@ const Student = ({navigation}) => {
       />
       <View style={styles.listWrapper}>
         <Divider />
-        {data.map((label, key) => (
-          <View key={key}>
-            <List.Item
-              title={label.value}
-              left={(props) => (
-                <Text style={styles.label}>{`${label.label} :`}</Text>
-              )}
-              titleStyle={{textTransform: 'capitalize'}}
-              style={{height: hp(7)}}
-            />
-            <Divider />
-          </View>
-        ))}
+        <List.Item
+          title={myDetails?.fullname}
+          left={(props) => <Text style={styles.label}>{`Fullname:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.matric_no}
+          left={(props) => <Text style={styles.label}>{`Matric No:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.email}
+          left={(props) => <Text style={styles.label}>{`Email:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.program}
+          left={(props) => <Text style={styles.label}>{`Program:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.session}
+          left={(props) => <Text style={styles.label}>{`Session:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.school}
+          left={(props) => <Text style={styles.label}>{`School:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.dept}
+          left={(props) => <Text style={styles.label}>{`Department:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.entry_year}
+          left={(props) => <Text style={styles.label}>{`Entry Year:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.phone_no}
+          left={(props) => <Text style={styles.label}>{`Phone Number:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.address}
+          left={(props) => <Text style={styles.label}>{`Address:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
+        <Divider />
+        <List.Item
+          title={myDetails?.sex}
+          left={(props) => <Text style={styles.label}>{`Sex:`}</Text>}
+          titleStyle={{textTransform: 'capitalize'}}
+          style={{height: hp(7)}}
+        />
         <Divider />
       </View>
     </ScrollContainer>

@@ -4,13 +4,18 @@ import auth from '@react-native-firebase/auth';
 export const Context = createContext();
 
 export const ContextProvider = (props) => {
-  const [isAuth, , setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
 
-  const onAuthStateChanged = (user) => {
-    setUser(user);
+  const onAuthStateChanged = (uid) => {
+    setUser(uid);
     if (initializing) setInitializing(false);
+    if (uid) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
   };
 
   useEffect(() => {

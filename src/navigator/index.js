@@ -28,7 +28,7 @@ import CourseMaterial from '../screens/class_material/course-material';
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
-  const {isAuth} = useContext(Context);
+  const {isAuth,} = useContext(Context);
 
   return (
     <Stack.Navigator

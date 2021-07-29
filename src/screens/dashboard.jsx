@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {Container} from '../components';
 import {Text, List, Divider, Avatar} from 'react-native-paper';
@@ -10,6 +10,8 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {Context} from '../store/context';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const Dashboard = ({navigation}) => {
   const [actions] = useState([
@@ -30,8 +32,39 @@ const Dashboard = ({navigation}) => {
     {action: 'Hostel', route: 'h_dashboard', icon: 'home'},
     {action: 'Course Details', route: 'course_details', icon: 'notebook'},
   ]);
-  const {setIsAuth} = useContext(Context);
+  const {user} = useContext(Context);
+  const [myDetails, setMyDetails] = useState({});
+  const [loading, setLoading] = useState(false);
 
+  const handleLogout = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
+
+  const fetchStudentDetails = () => {
+    firestore()
+      .collection('students')
+      .doc(user.uid)
+      .onSnapshot(
+        (details) => {
+          setLoading(false);
+          const data = details.data();
+          setMyDetails(data);
+        },
+        (e) => {
+          console.log(e);
+          setLoading(false);
+        },
+      );
+  };
+
+  useEffect(() => {
+    fetchStudentDetails();
+    return () => {
+      fetchStudentDetails();
+    };
+  }, []);
   return (
     <Container style={{paddingLeft: 0, paddingRight: 0}}>
       <View style={styles.navbar}>
@@ -40,7 +73,7 @@ const Dashboard = ({navigation}) => {
           <Text style={{color: 'white', fontSize: 20}}>Student Portal</Text>
           <View style={styles.date}>
             <Icon name="calendar" color="white" size={14} />
-            <Text style={{color: 'white'}}>13th May 2021</Text>
+            <Text style={{color: 'white'}}>{new Date().toDateString()}</Text>
           </View>
         </View>
         <View style={styles.right}>
@@ -50,19 +83,14 @@ const Dashboard = ({navigation}) => {
             size={25}
             onPress={() => navigation.navigate('faq')}
           />
-          <Icon
-            name="log-out"
-            color="white"
-            size={25}
-            onPress={() => setIsAuth(false)}
-          />
+          <Icon name="log-out" color="white" size={25} onPress={handleLogout} />
         </View>
       </View>
       <Container style={styles.listWrapper}>
         {actions.map((action, key) => (
           <View key={key}>
             <List.Item
-              onPress={() => navigation.navigate(action.route)}
+              onPress={() => navigation.navigate(action.route, {myDetails})}
               title={action.action}
               left={(props) => (
                 <List.Icon {...props} color="#00ab4a" icon={action.icon} />
@@ -82,8 +110,12 @@ const Dashboard = ({navigation}) => {
             }}
           />
           <View style={{marginLeft: 20, width: '50%'}}>
-            <Text style={{fontSize: wp(4)}}>Arobadi Ebenezer R</Text>
-            <Text>F/HD/18/3210023</Text>
+            <Text style={{fontSize: wp(4), textTransform: 'capitalize'}}>
+              {myDetails?.fullname}
+            </Text>
+            <Text style={{textTransform: 'uppercase'}}>
+              {myDetails?.matric_no}
+            </Text>
           </View>
           <View
             style={{
