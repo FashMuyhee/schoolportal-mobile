@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, FlatList, ScrollView} from 'react-native';
-import {NavBar, Container} from '../components';
+import {NavBar, Container, ScrollContainer} from '../components';
 import {Text, Chip, List, Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 import {
@@ -38,11 +38,31 @@ const Faq = ({navigation}) => {
   ];
 
   const questions = [
-    'how to pay school fee ?',
-    'how to generate RRR number ?',
-    'how to print school fee receipt',
-    'how to validate payment',
-    'how to print payment receipt',
+    {
+      q: 'how to pay school fee ?',
+      a:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis viverra neque nec feugiat rhoncus. Praesent fringilla dapibus nulla ac feugiat. Suspendisse potenti. Nam fringilla commodo sem vel facilisis. Phasellus mattis, est ac interdum ullamcorper, turpis lorem facilisis nisi, in commodo nunc ligula ut libero. In hac habitasse platea dictumst. Integer ultricies feugiat fringilla. Phasellus massa urna, dictum eu magna nec, volutpat posuere nulla',
+    },
+    {
+      q: 'how to generate RRR number ?',
+      a:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis viverra neque nec feugiat rhoncus. Praesent fringilla dapibus nulla ac feugiat. Suspendisse potenti. Nam fringilla commodo sem vel facilisis. Phasellus mattis, est ac interdum ullamcorper, turpis lorem facilisis nisi, in commodo nunc ligula ut libero. In hac habitasse platea dictumst. Integer ultricies feugiat fringilla. Phasellus massa urna, dictum eu magna nec, volutpat posuere nulla',
+    },
+    {
+      q: 'how to print school fee receipt',
+      a:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis viverra neque nec feugiat rhoncus. Praesent fringilla dapibus nulla ac feugiat. Suspendisse potenti. Nam fringilla commodo sem vel facilisis. Phasellus mattis, est ac interdum ullamcorper, turpis lorem facilisis nisi, in commodo nunc ligula ut libero. In hac habitasse platea dictumst. Integer ultricies feugiat fringilla. Phasellus massa urna, dictum eu magna nec, volutpat posuere nulla',
+    },
+    {
+      q: 'how to validate payment',
+      a:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis viverra neque nec feugiat rhoncus. Praesent fringilla dapibus nulla ac feugiat. Suspendisse potenti. Nam fringilla commodo sem vel facilisis. Phasellus mattis, est ac interdum ullamcorper, turpis lorem facilisis nisi, in commodo nunc ligula ut libero. In hac habitasse platea dictumst. Integer ultricies feugiat fringilla. Phasellus massa urna, dictum eu magna nec, volutpat posuere nulla',
+    },
+    {
+      q: 'how to print payment receipt',
+      a:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis viverra neque nec feugiat rhoncus. Praesent fringilla dapibus nulla ac feugiat. Suspendisse potenti. Nam fringilla commodo sem vel facilisis. Phasellus mattis, est ac interdum ullamcorper, turpis lorem facilisis nisi, in commodo nunc ligula ut libero. In hac habitasse platea dictumst. Integer ultricies feugiat fringilla. Phasellus massa urna, dictum eu magna nec, volutpat posuere nulla',
+    },
   ];
   return (
     <>
@@ -57,7 +77,7 @@ const Faq = ({navigation}) => {
           />
         }
       />
-      <Container pad={false} style={{backgroundColor: color.primary}}>
+      <Container style={{backgroundColor: color.primary}} pad={false}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>How Can We Help You?</Text>
         </View>
@@ -91,20 +111,23 @@ const Faq = ({navigation}) => {
             endFillColor={color.primary}
           />
         </View>
-        <View style={styles.faqList}>
-          {questions.map((question, index) => (
-            <List.Item
-              key={index}
-              title={question}
-              right={() => (
-                <List.Icon icon="chevron-right" color={Colors.grey600} />
-              )}
+        <FlatList
+          style={styles.faqList}
+          keyExtractor={(i, index) => index.toString()}
+          data={questions}
+          renderItem={({item, key}) => (
+            <List.Accordion
+              title={item.q}
               style={styles.item}
               centered={false}
-              titleStyle={{fontSize: hp(2), textTransform: 'capitalize'}}
-            />
-          ))}
-        </View>
+              titleStyle={{
+                fontSize: hp(1.7),
+                textTransform: 'capitalize',
+              }}>
+              <Text style={{fontSize: hp(1.7), marginBottom: 20}}>{item.a}</Text>
+            </List.Accordion>
+          )}
+        />
       </Container>
     </>
   );
@@ -155,6 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: hp(64),
     paddingHorizontal: 10,
+    marginBottom: hp(5),
   },
   item: {
     borderBottomColor: color.primary,
