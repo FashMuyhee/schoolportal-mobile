@@ -14,10 +14,15 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import logo from '../assets/images/logo.png';
-import FingerprintScanner from 'react-native-fingerprint-scanner';
 import auth from '@react-native-firebase/auth';
 import validateEmail from '../utils/validateEmail';
 import Snackbar from 'react-native-snackbar';
+import {
+  checkSensor,
+  authenticateBiometric,
+  saveUserCredentials,
+  getCredentials,
+} from '../services/Biometric';
 
 const Login = ({theme}) => {
   const {colors} = theme;
@@ -28,10 +33,9 @@ const Login = ({theme}) => {
 
   const handleSignIn = async () => {
     if (!email || !password) {
-      setMessage('All Field are required');
       Snackbar.show({text: 'All Field are required'});
 
-      return;
+      return false;
     }
 
     if (validateEmail(email)) {
@@ -43,16 +47,16 @@ const Login = ({theme}) => {
             password,
           );
           if (response) {
+            saveUserCredentials({uid: email, password});
             Snackbar.show({text: 'Login Successful'});
             setLoading(false);
           }
         } catch (e) {
           console.error(e.message);
           setLoading(false);
-          setMessage(e);
         }
       } else {
-         Snackbar.show({
+        Snackbar.show({
           text: 'Password Too Short, must be at least 8 characters ',
         });
       }
@@ -61,32 +65,35 @@ const Login = ({theme}) => {
     }
   };
 
-  const handleFingerPrintLogin = () => {
-    if (biometryType !== null && biometryType !== undefined) {
-      FingerprintScanner.authenticate({
-        description: 'Touch Fingerprint scanner to continue',
-      })
-        .then(() => {
-          handleSignIn();
-        })
-        .catch((error) => {
-          console.log('Authentication error is => ', error);
-        });
-    } else {
-      console.log('biometric authentication is not available');
+  const handleFingerPrintLogin = async () => {
+    const isAuth = await authenticateBiometric(biometryType);
+    if (isAuth) {
+      const credentials = await getCredentials();
+      if ((credentials?.username.length && credentials?.password.length) > 0)
+        try {
+          let response = await auth().signInWithEmailAndPassword(
+            credentials.username,
+            credentials.password,
+          );
+          if (response) {
+            Snackbar.show({text: 'Login Successful'});
+            setLoading(false);
+          }
+        } catch (e) {
+          console.error(e.message);
+          setLoading(false);
+          setMessage(e);
+        }
     }
   };
 
-  const checkSensor = () => {
-    FingerprintScanner.isSensorAvailable()
-      .then((biometryType) => {
-        setBiometryType(biometryType);
-      })
-      .catch((error) => console.log('isSensorAvailable error => ', error));
+  const checkSensorIsAvailable = async () => {
+    const sensor = await checkSensor();
+    setBiometryType(sensor);
   };
 
   useEffect(() => {
-    checkSensor();
+    checkSensorIsAvailable();
   }, []);
 
   return (

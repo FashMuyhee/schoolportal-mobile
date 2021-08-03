@@ -5,7 +5,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {Container} from '../../components';
+import {Container, ActivityModal} from '../../components';
 import colors from '../../utils/color';
 import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
 import color from '../../utils/color';
@@ -30,12 +30,16 @@ const CourseMaterial = ({navigation}) => {
   });
 
   const [materials, setMaterials] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const fetchMaterials = async () => {
     const links = [];
+    setLoading(true);
     const ref = await storage().ref('course materials').listAll();
     ref.items.forEach(async (item, key) => {
       const link = await item.getDownloadURL();
       links.push(link);
+      setLoading(false);
     });
     setMaterials(links);
   };
@@ -63,7 +67,6 @@ const CourseMaterial = ({navigation}) => {
     const progress = (data) => {
       const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
       const text = `Progress ${percentage}%`;
-      console.log({output: text});
     };
 
     await downloadFile({
@@ -121,6 +124,7 @@ const CourseMaterial = ({navigation}) => {
           </TableWrapper>
         ))}
       </Table>
+      <ActivityModal isLoading={loading} />
     </Container>
   );
 };
