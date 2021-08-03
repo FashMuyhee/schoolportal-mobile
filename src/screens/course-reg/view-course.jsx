@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, Image, TouchableNativeFeedback} from 'react-native';
 import {Text, Colors} from 'react-native-paper';
 import course_form from '../../assets/images/course_form.png';
-import unlock from '../../assets/images/unlock.png';
 import print from '../../assets/images/print.png';
 import {Container} from '../../components';
 import colors from '../../utils/color';
@@ -20,7 +19,6 @@ const ViewCourses = ({navigation}) => {
     <Container pad={false}>
       <View style={styles.cardList}>
         <CardItem image={course_form} title="Course Registration" />
-        <CardItem image={unlock} title="Unlock COurse Form" />
         <CardItem image={print} title="Print Course Form" />
       </View>
     </Container>

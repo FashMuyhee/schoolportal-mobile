@@ -8,18 +8,6 @@ import {Context} from '../../store/context';
 import firestore from '@react-native-firebase/firestore';
 
 const Parent = ({navigation}) => {
-  const [data] = useState([
-    {label: 'Full Name', value: 'Arobadi Ebenezer Rotimi'},
-    {label: 'Phone No', value: '09012373829'},
-    {
-      label: 'Address',
-      value: 'My home Address',
-    },
-    {
-      label: 'Relationship',
-      value: 'Mother',
-    },
-  ]);
   const [myDetails, setMyDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const {user} = useContext(Context);

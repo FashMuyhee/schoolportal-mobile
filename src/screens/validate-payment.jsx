@@ -1,15 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {NavBar, Container} from '../components';
+import {Container} from '../components';
 import {Text, withTheme, Button, TextInput} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Feather';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import SweetAlert from 'react-native-sweet-alert';
+import Snackbar from 'react-native-snackbar';
 
-const ValidatePayment = ({navigation, theme}) => {
-  const {colors} = theme;
+const ValidatePayment = ({navigation}) => {
+  const [state, setState] = useState('');
+
+  const handleVerify = () => {
+    if (state) {
+      SweetAlert.showAlertWithOptions({
+        title: 'Payment Verified',
+        confirmButtonTitle: 'OK',
+        confirmButtonColor: '#000',
+        style: 'success',
+        cancellable: true,
+      });
+      return;
+    }
+    Snackbar.show({text: 'All Field are required'});
+  };
+
   return (
     <Container>
       <View style={{marginVertical: '30%'}}>
@@ -19,6 +35,7 @@ const ValidatePayment = ({navigation, theme}) => {
         <TextInput
           label="RRR Number"
           style={{backgroundColor: 'white', marginVertical: 20}}
+          onChangeText={setState}
         />
         <Button
           uppercase={false}
@@ -29,7 +46,8 @@ const ValidatePayment = ({navigation, theme}) => {
             paddingVertical: 13,
             borderRadius: 0,
             alignItems: 'center',
-          }}>
+          }}
+          onPress={handleVerify}>
           Validate Payment
         </Button>
       </View>
@@ -38,6 +56,4 @@ const ValidatePayment = ({navigation, theme}) => {
 };
 
 export default withTheme(ValidatePayment);
-const styles = StyleSheet.create({
- 
-});
+const styles = StyleSheet.create({});

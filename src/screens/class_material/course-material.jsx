@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, PermissionsAndroid} from 'react-native';
 import {Text, IconButton} from 'react-native-paper';
 import {
   heightPercentageToDP as hp,
@@ -9,6 +9,9 @@ import {Container} from '../../components';
 import colors from '../../utils/color';
 import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
 import color from '../../utils/color';
+import storage from '@react-native-firebase/storage';
+import {DownloadDirectoryPath, downloadFile} from 'react-native-fs';
+import Snackbar from 'react-native-snackbar';
 
 const CourseMaterial = ({navigation}) => {
   const [tableData] = useState({
@@ -25,6 +28,62 @@ const CourseMaterial = ({navigation}) => {
       ['gns 402', ''],
     ],
   });
+
+  const [materials, setMaterials] = useState([]);
+  const fetchMaterials = async () => {
+    const links = [];
+    const ref = await storage().ref('course materials').listAll();
+    ref.items.forEach(async (item, key) => {
+      const link = await item.getDownloadURL();
+      links.push(link);
+    });
+    setMaterials(links);
+  };
+
+  const requestStoragePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      ]);
+      if (
+        granted['android.permission.READ_EXTERNAL_STORAGE'] &&
+        granted['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+      ) {
+        console.log('You can use the storage');
+      } else {
+        console.log('permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const handleDownload = async (link) => {
+    const progress = (data) => {
+      const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
+      const text = `Progress ${percentage}%`;
+      console.log({output: text});
+    };
+
+    await downloadFile({
+      toFile: `${DownloadDirectoryPath}/${new Date().getTime()}.pdf`,
+      fromUrl: link,
+      begin: () => Snackbar.show({text: 'Download in Progress'}),
+      progress: progress,
+      background: true,
+    }).promise;
+
+    Snackbar.show({text: 'Download Complete'});
+  };
+
+  useEffect(() => {
+    fetchMaterials();
+    requestStoragePermission();
+    return () => {
+      requestStoragePermission();
+    };
+  }, []);
 
   return (
     <Container pad>
@@ -49,6 +108,7 @@ const CourseMaterial = ({navigation}) => {
                       color={colors.background}
                       size={30}
                       style={{backgroundColor: colors.primary, marginLeft: 25}}
+                      onPress={() => handleDownload(materials[index])}
                     />
                   ) : (
                     cellData

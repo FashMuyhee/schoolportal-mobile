@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 const ScrollContainer = ({children, style}) => {
   const myStyle = {...styles.container, ...style};
 
-  return <ScrollView style={myStyle}>{children}</ScrollView>;
+  return (
+    <ScrollView style={myStyle} showsVerticalScrollIndicator={false}>
+      {children}
+    </ScrollView>
+  );
 };
 
 ScrollContainer.propType = {

@@ -17,6 +17,7 @@ import logo from '../assets/images/logo.png';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import auth from '@react-native-firebase/auth';
 import validateEmail from '../utils/validateEmail';
+import Snackbar from 'react-native-snackbar';
 
 const Login = ({theme}) => {
   const {colors} = theme;
@@ -42,7 +43,7 @@ const Login = ({theme}) => {
             password,
           );
           if (response) {
-            // Snackbar.show({text: 'Login Successful'});
+            Snackbar.show({text: 'Login Successful'});
             setLoading(false);
           }
         } catch (e) {
@@ -51,14 +52,12 @@ const Login = ({theme}) => {
           setMessage(e);
         }
       } else {
-        /*  Snackbar.show({
+         Snackbar.show({
           text: 'Password Too Short, must be at least 8 characters ',
-        }); */
-        console.log('Password Too Short, must be at least 8 characters');
+        });
       }
     } else {
-      // Snackbar.show({text: 'Invalid Email'});
-      console.log('Invalid Email');
+      Snackbar.show({text: 'Invalid Email'});
     }
   };
 
