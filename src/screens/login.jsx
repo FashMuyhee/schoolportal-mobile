@@ -6,7 +6,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Container} from '../components';
+import {ActivityModal, Container} from '../components';
 import {Button, Text, withTheme, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -71,6 +71,7 @@ const Login = ({theme}) => {
       const credentials = await getCredentials();
       if ((credentials?.username.length && credentials?.password.length) > 0)
         try {
+          setLoading(true);
           let response = await auth().signInWithEmailAndPassword(
             credentials.username,
             credentials.password,
@@ -182,6 +183,7 @@ const Login = ({theme}) => {
             </TouchableWithoutFeedback>
           </View>
         </View>
+        <ActivityModal isLoading={loading} />
       </Container>
     </>
   );

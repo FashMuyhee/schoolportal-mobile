@@ -18,7 +18,11 @@ const ViewCourses = ({navigation}) => {
   return (
     <Container pad={false}>
       <View style={styles.cardList}>
-        <CardItem image={course_form} title="Course Registration" />
+        <CardItem
+          image={course_form}
+          title="Course Registration"
+          onPress={() => navigation.navigate('course_reg')}
+        />
         <CardItem image={print} title="Print Course Form" />
       </View>
     </Container>

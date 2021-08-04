@@ -47,6 +47,7 @@ const ValidatePayment = ({navigation}) => {
             borderRadius: 0,
             alignItems: 'center',
           }}
+          labelStyle={{fontSize: hp(2)}}
           onPress={handleVerify}>
           Validate Payment
         </Button>
