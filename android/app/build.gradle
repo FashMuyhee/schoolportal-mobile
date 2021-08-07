@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.schoolportal"
+        applicationId "com.fashmuyhee.schoolportal"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

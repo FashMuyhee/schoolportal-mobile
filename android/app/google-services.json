@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:19264645517:android:e377239989f74c907fb5c4",
+        "mobilesdk_app_id": "1:19264645517:android:96abe6b30acf9c2b7fb5c4",
         "android_client_info": {
-          "package_name": "com.schoolportal"
+          "package_name": "com.fashmuyhee.schoolportal"
         }
       },
       "oauth_client": [
