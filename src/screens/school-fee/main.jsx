@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Image, TouchableNativeFeedback} from 'react-native';
 import {Text, Colors} from 'react-native-paper';
-import course_form from '../../assets/images/course_form.png';
 import print from '../../assets/images/print.png';
+import doc from '../../assets/pdf/test.pdf';
+import pay from '../../assets/images/pay.png';
 import {Container} from '../../components';
 import colors from '../../utils/color';
 import RNPrint from 'react-native-print';
@@ -15,28 +16,30 @@ const CardItem = ({image, title, onPress}) => (
     </View>
   </TouchableNativeFeedback>
 );
-const ViewCourses = ({navigation}) => {
-  const printDoc = async () => {
-    await RNPrint.print({
-      filePath:
-       'https://firebasestorage.googleapis.com/v0/b/school-portal-c540f.appspot.com/o/school%20docs%2FJohn%20Course%20Form.pdf?alt=media&token=f04e37f4-275b-46c6-8b5c-f4d3a2b647ae',
-    });
-  };
+
+const FeesMenu = ({navigation}) => {
   return (
     <Container pad={false}>
       <View style={styles.cardList}>
         <CardItem
-          image={course_form}
-          title="Course Registration"
-          onPress={() => navigation.navigate('course_reg')}
+          image={pay}
+          title="Pay for Fee"
+          onPress={() => navigation.navigate('pay_fees')}
         />
-        <CardItem image={print} title="Print Course Form" onPress={printDoc} />
+        <CardItem image={print} title="Print Receipt" onPress={printDoc} />
       </View>
     </Container>
   );
 };
 
-export default ViewCourses;
+const printDoc = async () => {
+  await RNPrint.print({
+    filePath:
+      'https://firebasestorage.googleapis.com/v0/b/school-portal-c540f.appspot.com/o/school%20docs%2FJohn%20Receipt.pdf?alt=media&token=22b2f1fb-98d0-4df7-b6c5-58a0de449088',
+  });
+};
+
+export default FeesMenu;
 
 const styles = StyleSheet.create({
   cardList: {
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 10,
     backgroundColor: Colors.grey100,
-    borderWidth: 1,
+    borderWidth: 0.7,
   },
   cardImage: {
     width: 40,
@@ -71,6 +74,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-Bold',
     fontSize: 16,
     marginLeft: 20,
-    textTransform: 'capitalize',
   },
 });

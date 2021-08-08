@@ -25,6 +25,9 @@ import ExamSchedule from '../screens/class_material/exam-schedule';
 import TimeTable from '../screens/class_material/class-table';
 import CourseMaterial from '../screens/class_material/course-material';
 import CourseRegistration from '../screens/course-reg/reg-course';
+import ContactSupport from '../screens/support';
+import FeesMenu from '../screens/school-fee/main';
+import PayFee from '../screens/school-fee/pay-fee';
 
 const Stack = createStackNavigator();
 
@@ -141,6 +144,27 @@ const StackNavigator = () => {
             })}
           />
           <Stack.Screen
+            name="support"
+            component={ContactSupport}
+            options={({ }) => ({
+              title: 'contact  help desk',
+            })}
+          />
+          <Stack.Screen
+            name="fees"
+            component={FeesMenu}
+            options={({ }) => ({
+              title: 'School Fees',
+            })}
+          />
+          <Stack.Screen
+            name="pay_fees"
+            component={PayFee}
+            options={({ }) => ({
+              title: 'Pay School Fees',
+            })}
+          />
+          <Stack.Screen
             name="coming_soon"
             component={ComingSoon}
             options={({ }) => ({
@@ -162,6 +186,13 @@ const StackNavigator = () => {
             component={Login}
             options={({ }) => ({
               headerShown: false,
+            })}
+          />
+          <Stack.Screen
+            name="support"
+            component={ContactSupport}
+            options={({ }) => ({
+              title: 'contact  help desk',
             })}
           />
         </>

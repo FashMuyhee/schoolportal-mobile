@@ -24,7 +24,7 @@ import {
   getCredentials,
 } from '../services/Biometric';
 
-const Login = ({theme}) => {
+const Login = ({theme, navigation}) => {
   const {colors} = theme;
   const [biometryType, setBiometryType] = useState({});
   const [email, setEmail] = useState('');
@@ -145,7 +145,8 @@ const Login = ({theme}) => {
                   fontWeight: 'normal',
                   color: '#00ab4a',
                   fontSize: wp(3.4),
-                }}>
+                }}
+                onPress={() => navigation.navigate('support')}>
                 Contact Support
               </Text>
             </TouchableWithoutFeedback>

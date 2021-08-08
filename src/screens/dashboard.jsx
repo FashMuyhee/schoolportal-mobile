@@ -12,25 +12,26 @@ import {
 import {Context} from '../store/context';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import Popover from 'react-native-popover-view';
 
 const Dashboard = ({navigation}) => {
   const [actions] = useState([
     {action: 'Biodata', route: 'biodata', icon: 'account'},
+    {action: 'School Fees', route: 'fees', icon: 'cash'},
     {action: 'Payment History', route: 'p_history', icon: 'menu'},
     {
       action: 'Validate Payment',
       route: 'validate-payment',
       icon: 'shield-check-outline',
     },
-    // {action: 'Transcript', route: 'coming_soon', icon: 'folder-account'},
     {
       action: 'View Course Form',
       route: 'view-course',
       icon: 'book-open-variant',
     },
+    {action: 'Course Details', route: 'course_details', icon: 'notebook'},
     {action: 'My Result', route: 'result', icon: 'clipboard-list-outline'},
     {action: 'Hostel', route: 'h_dashboard', icon: 'home'},
-    {action: 'Course Details', route: 'course_details', icon: 'notebook'},
   ]);
   const {user} = useContext(Context);
   const [myDetails, setMyDetails] = useState({});
@@ -77,12 +78,16 @@ const Dashboard = ({navigation}) => {
           </View>
         </View>
         <View style={styles.right}>
-          <Icon
-            name="help-circle"
-            color="white"
-            size={25}
-            onPress={() => navigation.navigate('faq')}
-          />
+          <Popover
+            popoverStyle={{padding: 10}}
+            from={<Icon name="help-circle" color="white" size={25} />}>
+            <Text
+              onPress={() => {
+                navigation.navigate('support');
+              }}>
+              Contact Help desk
+            </Text>
+          </Popover>
           <Icon name="log-out" color="white" size={25} onPress={handleLogout} />
         </View>
       </View>
@@ -109,23 +114,13 @@ const Dashboard = ({navigation}) => {
               backgroundColor: 'white',
             }}
           />
-          <View style={{marginLeft: 20, width: '50%'}}>
+          <View style={{marginLeft: 20}}>
             <Text style={{fontSize: wp(4), textTransform: 'capitalize'}}>
               {myDetails?.fullname}
             </Text>
             <Text style={{textTransform: 'uppercase'}}>
               {myDetails?.matric_no}
             </Text>
-          </View>
-          <View
-            style={{
-              marginLeft: 20,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: 70,
-            }}>
-            <Icon name="bell" size={25} color="grey" />
-            <Icon name="settings" size={25} color="grey" />
           </View>
         </View>
       </Container>
